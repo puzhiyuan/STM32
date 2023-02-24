@@ -28,8 +28,12 @@
 .\objects\main.o: .\Library\stm32f10x_usart.h
 .\objects\main.o: .\Library\stm32f10x_wwdg.h
 .\objects\main.o: .\Library\misc.h
-.\objects\main.o: .\System\Delay.h
-.\objects\main.o: .\Hardware\USART.h
-.\objects\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\stdio.h
-.\objects\main.o: .\Hardware\OLED.h
+.\objects\main.o: D:\Keil5\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: .\Hardware\DHT11.h
+.\objects\main.o: .\Hardware\USART.h
+.\objects\main.o: .\System\Delay.h
+.\objects\main.o: .\Hardware\LED.h
+.\objects\main.o: .\Hardware\OLED.h
+.\objects\main.o: .\Hardware\Buzzer.h
+.\objects\main.o: .\NET\onenet.h
+.\objects\main.o: .\NET\esp8266.h

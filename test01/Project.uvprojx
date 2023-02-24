@@ -340,7 +340,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Library;.\Start;.\User;.\System;.\Hardware</IncludePath>
+              <IncludePath>.\Library;.\Start;.\User;.\System;.\Hardware;.\NET;.\NET\MQTT</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -632,6 +632,41 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>NET</GroupName>
+          <Files>
+            <File>
+              <FileName>MqttKit.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\NET\MQTT\MqttKit.c</FilePath>
+            </File>
+            <File>
+              <FileName>MqttKit.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\NET\MQTT\MqttKit.h</FilePath>
+            </File>
+            <File>
+              <FileName>esp8266.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\NET\esp8266.c</FilePath>
+            </File>
+            <File>
+              <FileName>esp8266.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\NET\esp8266.h</FilePath>
+            </File>
+            <File>
+              <FileName>onenet.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\NET\onenet.c</FilePath>
+            </File>
+            <File>
+              <FileName>onenet.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\NET\onenet.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Start</GroupName>
           <Files>
             <File>
@@ -745,16 +780,6 @@
               <FilePath>.\Hardware\Servo.h</FilePath>
             </File>
             <File>
-              <FileName>Serial.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\Serial.c</FilePath>
-            </File>
-            <File>
-              <FileName>Serial.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Hardware\Serial.h</FilePath>
-            </File>
-            <File>
               <FileName>DHT11.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\Hardware\DHT11.c</FilePath>
@@ -765,14 +790,14 @@
               <FilePath>.\Hardware\DHT11.h</FilePath>
             </File>
             <File>
-              <FileName>USART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Hardware\USART.c</FilePath>
-            </File>
-            <File>
               <FileName>USART.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Hardware\USART.h</FilePath>
+            </File>
+            <File>
+              <FileName>USART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\USART.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -5,7 +5,7 @@
 #define DHT11_Dout_SCK_APBxClock_FUN RCC_APB2PeriphClockCmd
 #define DHT11_Dout_GPIO_CLK RCC_APB2Periph_GPIOE
 #define DHT11_Dout_GPIO_PORT GPIOA
-#define DHT11_Dout_GPIO_PIN GPIO_Pin_2
+#define DHT11_Dout_GPIO_PIN GPIO_Pin_4
 
 #define DHT11_Dout_0 GPIO_ResetBits(DHT11_Dout_GPIO_PORT, DHT11_Dout_GPIO_PIN)
 #define DHT11_Dout_1 GPIO_SetBits(DHT11_Dout_GPIO_PORT, DHT11_Dout_GPIO_PIN)

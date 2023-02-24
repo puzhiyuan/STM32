@@ -2,67 +2,67 @@
 	************************************************************
 	************************************************************
 	************************************************************
-	*	ÎÄ¼şÃû£º 	onenet.c
+	*	æ–‡ä»¶åï¼š 	onenet.c
 	*
-	*	×÷Õß£º 		ÕÅ¼ÌÈğ
+	*	ä½œè€…ï¼š 		å¼ ç»§ç‘
 	*
-	*	ÈÕÆÚ£º 		2017-05-08
+	*	æ—¥æœŸï¼š 		2017-05-08
 	*
-	*	°æ±¾£º 		V1.1
+	*	ç‰ˆæœ¬ï¼š 		V1.1
 	*
-	*	ËµÃ÷£º 		ÓëonenetÆ½Ì¨µÄÊı¾İ½»»¥½Ó¿Ú²ã
+	*	è¯´æ˜ï¼š 		ä¸onenetå¹³å°çš„æ•°æ®äº¤äº’æ¥å£å±‚
 	*
-	*	ĞŞ¸Ä¼ÇÂ¼£º	V1.0£ºĞ­Òé·â×°¡¢·µ»ØÅĞ¶Ï¶¼ÔÚÍ¬Ò»¸öÎÄ¼ş£¬²¢ÇÒ²»Í¬Ğ­Òé½Ó¿Ú²»Í¬¡£
-	*				V1.1£ºÌá¹©Í³Ò»½Ó¿Ú¹©Ó¦ÓÃ²ãÊ¹ÓÃ£¬¸ù¾İ²»Í¬Ğ­ÒéÎÄ¼şÀ´·â×°Ğ­ÒéÏà¹ØµÄÄÚÈİ¡£
+	*	ä¿®æ”¹è®°å½•ï¼š	V1.0ï¼šåè®®å°è£…ã€è¿”å›åˆ¤æ–­éƒ½åœ¨åŒä¸€ä¸ªæ–‡ä»¶ï¼Œå¹¶ä¸”ä¸åŒåè®®æ¥å£ä¸åŒã€‚
+	*				V1.1ï¼šæä¾›ç»Ÿä¸€æ¥å£ä¾›åº”ç”¨å±‚ä½¿ç”¨ï¼Œæ ¹æ®ä¸åŒåè®®æ–‡ä»¶æ¥å°è£…åè®®ç›¸å…³çš„å†…å®¹ã€‚
 	************************************************************
 	************************************************************
 	************************************************************
 **/
 
-//µ¥Æ¬»úÍ·ÎÄ¼ş
+//å•ç‰‡æœºå¤´æ–‡ä»¶
 #include "stm32f10x.h"
 
-//ÍøÂçÉè±¸
+//ç½‘ç»œè®¾å¤‡
 #include "esp8266.h"
 
-//Ğ­ÒéÎÄ¼ş
+//åè®®æ–‡ä»¶
 #include "onenet.h"
 #include "mqttkit.h"
 
-//Ó²¼şÇı¶¯
+//ç¡¬ä»¶é©±åŠ¨
 #include "usart.h"
 #include "delay.h"
 
-//C¿â
+//Cåº“
 #include <string.h>
 #include <stdio.h>
 
 
-#define PROID		"77247"
+#define PROID		"574513"
 
-#define AUTH_INFO	"test"
+#define AUTH_INFO	"o2gHdw3oIgHmaboVOd=PYtfXcp4="
 
-#define DEVID		"5616839"
+#define DEVID		"1050166359"
 
 
 extern unsigned char esp8266_buf[128];
 
 
 //==========================================================
-//	º¯ÊıÃû³Æ£º	OneNet_DevLink
+//	å‡½æ•°åç§°ï¼š	OneNet_DevLink
 //
-//	º¯Êı¹¦ÄÜ£º	Óëonenet´´½¨Á¬½Ó
+//	å‡½æ•°åŠŸèƒ½ï¼š	ä¸onenetåˆ›å»ºè¿æ¥
 //
-//	Èë¿Ú²ÎÊı£º	ÎŞ
+//	å…¥å£å‚æ•°ï¼š	æ— 
 //
-//	·µ»Ø²ÎÊı£º	1-³É¹¦	0-Ê§°Ü
+//	è¿”å›å‚æ•°ï¼š	1-æˆåŠŸ	0-å¤±è´¥
 //
-//	ËµÃ÷£º		ÓëonenetÆ½Ì¨½¨Á¢Á¬½Ó
+//	è¯´æ˜ï¼š		ä¸onenetå¹³å°å»ºç«‹è¿æ¥
 //==========================================================
 _Bool OneNet_DevLink(void)
 {
 	
-	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};					//Ğ­Òé°ü
+	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};					//åè®®åŒ…
 
 	unsigned char *dataPtr;
 	
@@ -74,29 +74,29 @@ _Bool OneNet_DevLink(void)
 	
 	if(MQTT_PacketConnect(PROID, AUTH_INFO, DEVID, 256, 0, MQTT_QOS_LEVEL0, NULL, NULL, 0, &mqttPacket) == 0)
 	{
-		ESP8266_SendData(mqttPacket._data, mqttPacket._len);			//ÉÏ´«Æ½Ì¨
+		ESP8266_SendData(mqttPacket._data, mqttPacket._len);			//ä¸Šä¼ å¹³å°
 		
-		dataPtr = ESP8266_GetIPD(250);									//µÈ´ıÆ½Ì¨ÏìÓ¦
+		dataPtr = ESP8266_GetIPD(250);									//ç­‰å¾…å¹³å°å“åº”
 		if(dataPtr != NULL)
 		{
 			if(MQTT_UnPacketRecv(dataPtr) == MQTT_PKT_CONNACK)
 			{
 				switch(MQTT_UnPacketConnectAck(dataPtr))
 				{
-					case 0:UsartPrintf(USART_DEBUG, "Tips:	Á¬½Ó³É¹¦\r\n");status = 0;break;
+					case 0:UsartPrintf(USART_DEBUG, "Tips:	è¿æ¥æˆåŠŸ\r\n");status = 0;break;
 					
-					case 1:UsartPrintf(USART_DEBUG, "WARN:	Á¬½ÓÊ§°Ü£ºĞ­Òé´íÎó\r\n");break;
-					case 2:UsartPrintf(USART_DEBUG, "WARN:	Á¬½ÓÊ§°Ü£º·Ç·¨µÄclientid\r\n");break;
-					case 3:UsartPrintf(USART_DEBUG, "WARN:	Á¬½ÓÊ§°Ü£º·şÎñÆ÷Ê§°Ü\r\n");break;
-					case 4:UsartPrintf(USART_DEBUG, "WARN:	Á¬½ÓÊ§°Ü£ºÓÃ»§Ãû»òÃÜÂë´íÎó\r\n");break;
-					case 5:UsartPrintf(USART_DEBUG, "WARN:	Á¬½ÓÊ§°Ü£º·Ç·¨Á´½Ó(±ÈÈçtoken·Ç·¨)\r\n");break;
+					case 1:UsartPrintf(USART_DEBUG, "WARN:	è¿æ¥å¤±è´¥ï¼šåè®®é”™è¯¯\r\n");break;
+					case 2:UsartPrintf(USART_DEBUG, "WARN:	è¿æ¥å¤±è´¥: éæ³•çš„clientid\r\n");break;
+					case 3:UsartPrintf(USART_DEBUG, "WARN:	è¿æ¥å¤±è´¥ï¼šæœåŠ¡å™¨å¤±è´¥\r\n");break;
+					case 4:UsartPrintf(USART_DEBUG, "WARN:	è¿æ¥å¤±è´¥ï¼šç”¨æˆ·åæˆ–å¯†ç é”™è¯¯\r\n");break;
+					case 5:UsartPrintf(USART_DEBUG, "WARN:	è¿æ¥å¤±è´¥ï¼šéæ³•é“¾æ¥(æ¯”å¦‚tokenéæ³•)\r\n");break;
 					
-					default:UsartPrintf(USART_DEBUG, "ERR:	Á¬½ÓÊ§°Ü£ºÎ´Öª´íÎó\r\n");break;
+					default:UsartPrintf(USART_DEBUG, "ERR:	è¿æ¥å¤±è´¥ï¼šæœªçŸ¥é”™è¯¯\r\n");break;
 				}
 			}
 		}
 		
-		MQTT_DeleteBuffer(&mqttPacket);								//É¾°ü
+		MQTT_DeleteBuffer(&mqttPacket);								//åˆ åŒ…
 	}
 	else
 		UsartPrintf(USART_DEBUG, "WARN:	MQTT_PacketConnect Failed\r\n");
@@ -106,79 +106,79 @@ _Bool OneNet_DevLink(void)
 }
 
 //==========================================================
-//	º¯ÊıÃû³Æ£º	OneNet_Subscribe
+//	å‡½æ•°åç§°ï¼š	OneNet_Subscribe
 //
-//	º¯Êı¹¦ÄÜ£º	¶©ÔÄ
+//	å‡½æ•°åŠŸèƒ½ï¼š	è®¢é˜…
 //
-//	Èë¿Ú²ÎÊı£º	topics£º¶©ÔÄµÄtopic
-//				topic_cnt£ºtopic¸öÊı
+//	å…¥å£å‚æ•°ï¼š	topicsï¼šè®¢é˜…çš„topic
+//				topic_cntï¼štopicä¸ªæ•°
 //
-//	·µ»Ø²ÎÊı£º	SEND_TYPE_OK-³É¹¦	SEND_TYPE_SUBSCRIBE-ĞèÒªÖØ·¢
+//	è¿”å›å‚æ•°ï¼š	SEND_TYPE_OK-æˆåŠŸ	SEND_TYPE_SUBSCRIBE-éœ€è¦é‡å‘
 //
-//	ËµÃ÷£º		
+//	è¯´æ˜ï¼š		
 //==========================================================
 void OneNet_Subscribe(const char *topics[], unsigned char topic_cnt)
 {
 	
 	unsigned char i = 0;
 	
-	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};							//Ğ­Òé°ü
+	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};							//åè®®åŒ…
 	
 	for(; i < topic_cnt; i++)
 		UsartPrintf(USART_DEBUG, "Subscribe Topic: %s\r\n", topics[i]);
 	
 	if(MQTT_PacketSubscribe(MQTT_SUBSCRIBE_ID, MQTT_QOS_LEVEL2, topics, topic_cnt, &mqttPacket) == 0)
 	{
-		ESP8266_SendData(mqttPacket._data, mqttPacket._len);					//ÏòÆ½Ì¨·¢ËÍ¶©ÔÄÇëÇó
+		ESP8266_SendData(mqttPacket._data, mqttPacket._len);					//å‘å¹³å°å‘é€è®¢é˜…è¯·æ±‚
 		
-		MQTT_DeleteBuffer(&mqttPacket);											//É¾°ü
+		MQTT_DeleteBuffer(&mqttPacket);											//åˆ åŒ…
 	}
 
 }
 
 //==========================================================
-//	º¯ÊıÃû³Æ£º	OneNet_Publish
+//	å‡½æ•°åç§°ï¼š	OneNet_Publish
 //
-//	º¯Êı¹¦ÄÜ£º	·¢²¼ÏûÏ¢
+//	å‡½æ•°åŠŸèƒ½ï¼š	å‘å¸ƒæ¶ˆæ¯
 //
-//	Èë¿Ú²ÎÊı£º	topic£º·¢²¼µÄÖ÷Ìâ
-//				msg£ºÏûÏ¢ÄÚÈİ
+//	å…¥å£å‚æ•°ï¼š	topicï¼šå‘å¸ƒçš„ä¸»é¢˜
+//				msgï¼šæ¶ˆæ¯å†…å®¹
 //
-//	·µ»Ø²ÎÊı£º	SEND_TYPE_OK-³É¹¦	SEND_TYPE_PUBLISH-ĞèÒªÖØËÍ
+//	è¿”å›å‚æ•°ï¼š	SEND_TYPE_OK-æˆåŠŸ	SEND_TYPE_PUBLISH-éœ€è¦é‡é€
 //
-//	ËµÃ÷£º		
+//	è¯´æ˜ï¼š		
 //==========================================================
 void OneNet_Publish(const char *topic, const char *msg)
 {
 
-	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};							//Ğ­Òé°ü
+	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};							//åè®®åŒ…
 	
 	UsartPrintf(USART_DEBUG, "Publish Topic: %s, Msg: %s\r\n", topic, msg);
 	
 	if(MQTT_PacketPublish(MQTT_PUBLISH_ID, topic, msg, strlen(msg), MQTT_QOS_LEVEL2, 0, 1, &mqttPacket) == 0)
 	{
-		ESP8266_SendData(mqttPacket._data, mqttPacket._len);					//ÏòÆ½Ì¨·¢ËÍ¶©ÔÄÇëÇó
+		ESP8266_SendData(mqttPacket._data, mqttPacket._len);					//å‘å¹³å°å‘é€è®¢é˜…è¯·æ±‚
 		
-		MQTT_DeleteBuffer(&mqttPacket);											//É¾°ü
+		MQTT_DeleteBuffer(&mqttPacket);											//åˆ åŒ…
 	}
 
 }
 
 //==========================================================
-//	º¯ÊıÃû³Æ£º	OneNet_RevPro
+//	å‡½æ•°åç§°ï¼š	OneNet_RevPro
 //
-//	º¯Êı¹¦ÄÜ£º	Æ½Ì¨·µ»ØÊı¾İ¼ì²â
+//	å‡½æ•°åŠŸèƒ½ï¼š	å¹³å°è¿”å›æ•°æ®æ£€æµ‹
 //
-//	Èë¿Ú²ÎÊı£º	dataPtr£ºÆ½Ì¨·µ»ØµÄÊı¾İ
+//	å…¥å£å‚æ•°ï¼š	dataPtrï¼šå¹³å°è¿”å›çš„æ•°æ®
 //
-//	·µ»Ø²ÎÊı£º	ÎŞ
+//	è¿”å›å‚æ•°ï¼š	æ— 
 //
-//	ËµÃ÷£º		
+//	è¯´æ˜ï¼š		
 //==========================================================
 void OneNet_RevPro(unsigned char *cmd)
 {
 	
-	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};								//Ğ­Òé°ü
+	MQTT_PACKET_STRUCTURE mqttPacket = {NULL, 0, 0, 0};								//åè®®åŒ…
 	
 	char *req_payload = NULL;
 	char *cmdid_topic = NULL;
@@ -199,25 +199,25 @@ void OneNet_RevPro(unsigned char *cmd)
 	type = MQTT_UnPacketRecv(cmd);
 	switch(type)
 	{
-		case MQTT_PKT_CMD:															//ÃüÁîÏÂ·¢
+		case MQTT_PKT_CMD:															//å‘½ä»¤ä¸‹å‘
 			
-			result = MQTT_UnPacketCmd(cmd, &cmdid_topic, &req_payload, &req_len);	//½â³ötopicºÍÏûÏ¢Ìå
+			result = MQTT_UnPacketCmd(cmd, &cmdid_topic, &req_payload, &req_len);	//è§£å‡ºtopicå’Œæ¶ˆæ¯ä½“
 			if(result == 0)
 			{
 				UsartPrintf(USART_DEBUG, "cmdid: %s, req: %s, req_len: %d\r\n", cmdid_topic, req_payload, req_len);
 				
-				if(MQTT_PacketCmdResp(cmdid_topic, req_payload, &mqttPacket) == 0)	//ÃüÁî»Ø¸´×é°ü
+				if(MQTT_PacketCmdResp(cmdid_topic, req_payload, &mqttPacket) == 0)	//å‘½ä»¤å›å¤ç»„åŒ…
 				{
 					UsartPrintf(USART_DEBUG, "Tips:	Send CmdResp\r\n");
 					
-					ESP8266_SendData(mqttPacket._data, mqttPacket._len);			//»Ø¸´ÃüÁî
-					MQTT_DeleteBuffer(&mqttPacket);									//É¾°ü
+					ESP8266_SendData(mqttPacket._data, mqttPacket._len);			//å›å¤å‘½ä»¤
+					MQTT_DeleteBuffer(&mqttPacket);									//åˆ åŒ…
 				}
 			}
 		
 		break;
 			
-		case MQTT_PKT_PUBLISH:														//½ÓÊÕµÄPublishÏûÏ¢
+		case MQTT_PKT_PUBLISH:														//æ¥æ”¶çš„Publishæ¶ˆæ¯
 		
 			result = MQTT_UnPacketPublish(cmd, &cmdid_topic, &topic_len, &req_payload, &req_len, &qos, &pkt_id);
 			if(result == 0)
@@ -227,7 +227,7 @@ void OneNet_RevPro(unsigned char *cmd)
 				
 				switch(qos)
 				{
-					case 1:															//ÊÕµ½publishµÄqosÎª1£¬Éè±¸ĞèÒª»Ø¸´Ack
+					case 1:															//æ”¶åˆ°publishçš„qosä¸º1ï¼Œè®¾å¤‡éœ€è¦å›å¤Ack
 					
 						if(MQTT_PacketPublishAck(pkt_id, &mqttPacket) == 0)
 						{
@@ -238,8 +238,8 @@ void OneNet_RevPro(unsigned char *cmd)
 					
 					break;
 					
-					case 2:															//ÊÕµ½publishµÄqosÎª2£¬Éè±¸ÏÈ»Ø¸´Rec
-																					//Æ½Ì¨»Ø¸´Rel£¬Éè±¸ÔÙ»Ø¸´Comp
+					case 2:															//æ”¶åˆ°publishçš„qosä¸º2ï¼Œè®¾å¤‡å…ˆå›å¤Rec
+																					//å¹³å°å›å¤Relï¼Œè®¾å¤‡å†å›å¤Comp
 						if(MQTT_PacketPublishRec(pkt_id, &mqttPacket) == 0)
 						{
 							UsartPrintf(USART_DEBUG, "Tips:	Send PublishRec\r\n");
@@ -256,14 +256,14 @@ void OneNet_RevPro(unsigned char *cmd)
 		
 		break;
 			
-		case MQTT_PKT_PUBACK:														//·¢ËÍPublishÏûÏ¢£¬Æ½Ì¨»Ø¸´µÄAck
+		case MQTT_PKT_PUBACK:														//å‘é€Publishæ¶ˆæ¯ï¼Œå¹³å°å›å¤çš„Ack
 		
 			if(MQTT_UnPacketPublishAck(cmd) == 0)
 				UsartPrintf(USART_DEBUG, "Tips:	MQTT Publish Send OK\r\n");
 			
 		break;
 			
-		case MQTT_PKT_PUBREC:														//·¢ËÍPublishÏûÏ¢£¬Æ½Ì¨»Ø¸´µÄRec£¬Éè±¸Ğè»Ø¸´RelÏûÏ¢
+		case MQTT_PKT_PUBREC:														//å‘é€Publishæ¶ˆæ¯ï¼Œå¹³å°å›å¤çš„Recï¼Œè®¾å¤‡éœ€å›å¤Relæ¶ˆæ¯
 		
 			if(MQTT_UnPacketPublishRec(cmd) == 0)
 			{
@@ -278,7 +278,7 @@ void OneNet_RevPro(unsigned char *cmd)
 		
 		break;
 			
-		case MQTT_PKT_PUBREL:														//ÊÕµ½PublishÏûÏ¢£¬Éè±¸»Ø¸´Recºó£¬Æ½Ì¨»Ø¸´µÄRel£¬Éè±¸ĞèÔÙ»Ø¸´Comp
+		case MQTT_PKT_PUBREL:														//æ”¶åˆ°Publishæ¶ˆæ¯ï¼Œè®¾å¤‡å›å¤Recåï¼Œå¹³å°å›å¤çš„Relï¼Œè®¾å¤‡éœ€å†å›å¤Comp
 			
 			if(MQTT_UnPacketPublishRel(cmd, pkt_id) == 0)
 			{
@@ -293,7 +293,7 @@ void OneNet_RevPro(unsigned char *cmd)
 		
 		break;
 		
-		case MQTT_PKT_PUBCOMP:														//·¢ËÍPublishÏûÏ¢£¬Æ½Ì¨·µ»ØRec£¬Éè±¸»Ø¸´Rel£¬Æ½Ì¨ÔÙ·µ»ØµÄComp
+		case MQTT_PKT_PUBCOMP:														//å‘é€Publishæ¶ˆæ¯ï¼Œå¹³å°è¿”å›Recï¼Œè®¾å¤‡å›å¤Relï¼Œå¹³å°å†è¿”å›çš„Comp
 		
 			if(MQTT_UnPacketPublishComp(cmd) == 0)
 			{
@@ -302,7 +302,7 @@ void OneNet_RevPro(unsigned char *cmd)
 		
 		break;
 			
-		case MQTT_PKT_SUBACK:														//·¢ËÍSubscribeÏûÏ¢µÄAck
+		case MQTT_PKT_SUBACK:														//å‘é€Subscribeæ¶ˆæ¯çš„Ack
 		
 			if(MQTT_UnPacketSubscribe(cmd) == 0)
 				UsartPrintf(USART_DEBUG, "Tips:	MQTT Subscribe OK\r\n");
@@ -311,7 +311,7 @@ void OneNet_RevPro(unsigned char *cmd)
 		
 		break;
 			
-		case MQTT_PKT_UNSUBACK:														//·¢ËÍUnSubscribeÏûÏ¢µÄAck
+		case MQTT_PKT_UNSUBACK:														//å‘é€UnSubscribeæ¶ˆæ¯çš„Ack
 		
 			if(MQTT_UnPacketUnSubscribe(cmd) == 0)
 				UsartPrintf(USART_DEBUG, "Tips:	MQTT UnSubscribe OK\r\n");
@@ -325,23 +325,23 @@ void OneNet_RevPro(unsigned char *cmd)
 		break;
 	}
 	
-	ESP8266_Clear();									//Çå¿Õ»º´æ
+	ESP8266_Clear();									//æ¸…ç©ºç¼“å­˜
 	
 	if(result == -1)
 		return;
 	
-	dataPtr = strchr(req_payload, '}');					//ËÑË÷'}'
+	dataPtr = strchr(req_payload, '}');					//æœç´¢'}'
 
-	if(dataPtr != NULL && result != -1)					//Èç¹ûÕÒµ½ÁË
+	if(dataPtr != NULL && result != -1)					//å¦‚æœæ‰¾åˆ°äº†
 	{
 		dataPtr++;
 		
-		while(*dataPtr >= '0' && *dataPtr <= '9')		//ÅĞ¶ÏÊÇ·ñÊÇÏÂ·¢µÄÃüÁî¿ØÖÆÊı¾İ
+		while(*dataPtr >= '0' && *dataPtr <= '9')		//åˆ¤æ–­æ˜¯å¦æ˜¯ä¸‹å‘çš„å‘½ä»¤æ§åˆ¶æ•°æ®
 		{
 			numBuf[num++] = *dataPtr++;
 		}
 		
-		num = atoi((const char *)numBuf);				//×ªÎªÊıÖµĞÎÊ½
+		num = atoi((const char *)numBuf);				//è½¬ä¸ºæ•°å€¼å½¢å¼
 		
 	}
 

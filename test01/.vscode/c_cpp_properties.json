@@ -8,6 +8,8 @@
                 "f:\\stm\\stm32_web\\32\\test01\\User",
                 "f:\\stm\\stm32_web\\32\\test01\\System",
                 "f:\\stm\\stm32_web\\32\\test01\\Hardware",
+                "f:\\stm\\stm32_web\\32\\test01\\NET",
+                "f:\\stm\\stm32_web\\32\\test01\\NET\\MQTT",
                 "D:\\Keil5\\ARM\\ARMCC\\include",
                 "D:\\Keil5\\ARM\\ARMCC\\include\\rw"
             ],
